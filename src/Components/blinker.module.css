@@ -1,0 +1,31 @@
+.outer {
+  border-radius: 100px;
+  background-color: var(--green-light);
+  height: 24px;
+  width: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner {
+  border-radius: 100px;
+  background-color: var(--green);
+  height: 11px;
+  width: 11px;
+
+  animation: heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
