@@ -4,6 +4,7 @@
 
   border: var(--border);
   border-radius: 8px;
+  width: 100%;
 }
 
 .header {
@@ -26,5 +27,6 @@
 
 .children {
   display: flex;
+  flex-direction: column;
   padding: 12px 8px;
 }

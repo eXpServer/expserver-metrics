@@ -23,7 +23,7 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 20px;
 
   margin: 20px;
 }
@@ -35,22 +35,20 @@ body {
   gap: 12px;
 }
 
-.rowKey {
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.7px;
-  color: var(--grey);
+.borderDivider {
+  display: flex;
+  height: 0.5px;
+  background-color: #dddddd;
+  margin: 12px 0;
 }
 
-.rowContent {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 18px;
+.subHeading {
+  font-size: 12px;
   font-weight: 600;
+  padding-bottom: 12px;
 }
 
-.divider {
+.cardsRow {
   display: flex;
-  border-bottom: 1px dashed var(--grey10);
+  gap: 20px;
 }

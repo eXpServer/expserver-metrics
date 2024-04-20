@@ -1,6 +1,10 @@
 import styles from "./app.module.css";
 import Box from "./Components/Box";
+import LineGraph from "./Components/Line";
 import Resource from "./Components/Resource";
+import { DoughnutGraph } from "./Components/Doughnut";
+import RowItem from "./Components/RowItem";
+import { HalfDoughnutGraph } from "./Components/HalfDoughnut";
 
 function App() {
   return (
@@ -50,30 +54,71 @@ function App() {
           </defs>
         </svg>
         <div className={styles.content}>
-          <Box title={"Server"}>
-            <div className={styles.rows}>
-              <div className={styles.rowContent}>
-                <span className={styles.rowKey}>UPTIME</span>
-                56m 12s
+          <div className={styles.cardsRow}>
+            <Box title={"Server"}>
+              <div className={styles.rows}>
+                <RowItem title={"UPTIME"} value={"56m 12s"} divider />
+                <RowItem title={"PID"} value={"244"} divider />
+                <RowItem title={"WORKERS"} value={"4"} divider />
+                <RowItem title={"SERVER NAME"} value={"eXpServer"} divider />
               </div>
-              <div className={styles.divider}></div>
-              <div className={styles.rowContent}>
-                <span className={styles.rowKey}>PID</span>
-                244
-              </div>
-              <div className={styles.divider}></div>
-              <div className={styles.rowContent}>
-                <span className={styles.rowKey}>WORKERS</span>4
-              </div>
-              <div className={styles.divider}></div>
-              <div className={styles.rowContent}>
-                <span className={styles.rowKey}>SERVER NAME</span>
-                eXpServer
-              </div>
-            </div>
+            </Box>
+            <Box title={"System Usage"}>
+              <span className={styles.subHeading}>CPU Usage</span>
+              <HalfDoughnutGraph graphData={1} />
+            </Box>
+            <Box title={"Worker Usage"}>
+              <span className={styles.subHeading}>RAM Usage</span>
+              <HalfDoughnutGraph graphData={1} />
+            </Box>
+          </div>
+        </div>
+        <div className={styles.cardsRow}>
+          <Box title={"Connections/sec"}>
+            <LineGraph graphData={1} />
+          </Box>
+          <Box title={"Requests/sec"}>
+            <LineGraph graphData={1} />
           </Box>
         </div>
-        <Resource cpus={16} />
+        <div className={styles.cardsRow}>
+          <Box title={"Realtime Traffic"}>
+            <LineGraph graphData={1} />
+          </Box>
+          <Box title={"Total Traffic"}>
+            <span className={styles.subHeading}>RAM Usage</span>
+            <HalfDoughnutGraph graphData={1} />
+          </Box>
+        </div>
+        <div className={styles.cardsRow}>
+          <Box title={"Connections"}>
+            <div className={styles.rows}>
+              <RowItem title={"CURRENT"} value={"12"} divider />
+              <RowItem title={"TOTAL"} value={"13515"} />
+            </div>
+            <div className={styles.borderDivider}></div>
+            <span className={styles.subHeading}>Connection tyes</span>
+            <DoughnutGraph graphData={1} />
+          </Box>
+          <Box title={"Requests"}>
+            <div className={styles.rows}>
+              <RowItem title={"CURRENT"} value={"12"} divider />
+              <RowItem title={"TOTAL"} value={"13515"} />
+            </div>
+            <div className={styles.borderDivider}></div>
+            <span className={styles.subHeading}>Requests tyes</span>
+            <DoughnutGraph graphData={1} />
+          </Box>
+          <Box title={"Responses"}>
+            <div className={styles.rows}>
+              <RowItem title={"CURRENT"} value={"12"} divider />
+              <RowItem title={"TOTAL"} value={"13515"} />
+            </div>
+            <div className={styles.borderDivider}></div>
+            <span className={styles.subHeading}>Responses tyes</span>
+            <DoughnutGraph graphData={1} />
+          </Box>
+        </div>
       </div>
     </>
   );
