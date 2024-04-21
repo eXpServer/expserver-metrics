@@ -29,7 +29,7 @@ function getRandomNumbers(n, min, max) {
   return data;
 }
 
-export default function LineGraph({ graphData }) {
+export default function LineGraph({ graphData, height }) {
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -83,6 +83,7 @@ export default function LineGraph({ graphData }) {
                 radius: 1,
               },
             },
+            maintainAspectRatio: false,
           },
         };
         setData(data);
@@ -92,7 +93,9 @@ export default function LineGraph({ graphData }) {
 
   return (
     <div className={styles.container}>
-      {data ? <Line data={data} options={data?.options} height={150} /> : null}
+      {data ? (
+        <Line data={data} options={data?.options} height={height} />
+      ) : null}
     </div>
   );
 }

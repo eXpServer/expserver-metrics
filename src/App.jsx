@@ -1,7 +1,7 @@
 import styles from "./app.module.css";
 import Box from "./Components/Box";
 import LineGraph from "./Components/Line";
-import Resource from "./Components/Resource";
+import { CPUS, RAM } from "./Components/Resource";
 import { DoughnutGraph } from "./Components/Doughnut";
 import RowItem from "./Components/RowItem";
 import { HalfDoughnutGraph } from "./Components/HalfDoughnut";
@@ -60,30 +60,38 @@ function App() {
                 <RowItem title={"UPTIME"} value={"56m 12s"} divider />
                 <RowItem title={"PID"} value={"244"} divider />
                 <RowItem title={"WORKERS"} value={"4"} divider />
-                <RowItem title={"SERVER NAME"} value={"eXpServer"} divider />
+                <RowItem title={"SERVER NAME"} value={"eXpServer"} />
               </div>
             </Box>
             <Box title={"System Usage"}>
               <span className={styles.subHeading}>CPU Usage</span>
               <HalfDoughnutGraph graphData={1} />
+              <span className={styles.subHeading} style={{ marginTop: "24px" }}>
+                RAM Usage
+              </span>
+              <RAM value={70} />
             </Box>
             <Box title={"Worker Usage"}>
-              <span className={styles.subHeading}>RAM Usage</span>
-              <HalfDoughnutGraph graphData={1} />
+              <span className={styles.subHeading}>CPU Usage</span>
+              <CPUS values={[34, 53, 12, 34, 60, 70]} />
+              <span className={styles.subHeading} style={{ marginTop: "24px" }}>
+                RAM Usage
+              </span>
+              <RAM value={70} />
             </Box>
           </div>
         </div>
         <div className={styles.cardsRow}>
           <Box title={"Connections/sec"}>
-            <LineGraph graphData={1} />
+            <LineGraph graphData={1} height={200} />
           </Box>
           <Box title={"Requests/sec"}>
-            <LineGraph graphData={1} />
+            <LineGraph graphData={1} height={200} />
           </Box>
         </div>
         <div className={styles.cardsRow}>
-          <Box title={"Realtime Traffic"}>
-            <LineGraph graphData={1} />
+          <Box title={"Realtime Traffic"} width={1800}>
+            <LineGraph graphData={1} height={200} />
           </Box>
           <Box title={"Total Traffic"}>
             <span className={styles.subHeading}>RAM Usage</span>

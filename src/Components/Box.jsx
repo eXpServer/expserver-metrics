@@ -2,9 +2,9 @@
 import Blinker from "./Blinker";
 import styles from "./box.module.css";
 
-export default function Box({ title, children }) {
+export default function Box({ title, width, height, children }) {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ width: width, height: height }}>
       <div className={styles.header}>
         <div className={styles.title}>
           {title == "eXpServer" ? (
