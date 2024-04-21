@@ -74,7 +74,7 @@ export default function LineGraph({ graphData, height }) {
               },
               y: {
                 ticks: {
-                  stepSize: 1,
+                  stepSize: 1000,
                 },
               },
             },

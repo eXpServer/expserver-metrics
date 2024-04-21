@@ -10,7 +10,7 @@ export function RAM({ value }) {
       const width = containerRef.current.offsetWidth;
       setContainerWidth(width / 2);
     }
-  }, [value]); // Recalculate width whenever value changes
+  }, [value]);
   return (
     <div className={styles.ramContainer} ref={containerRef}>
       {containerWidth != null ? (

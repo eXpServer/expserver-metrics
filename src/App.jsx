@@ -5,8 +5,48 @@ import { CPUS, RAM } from "./Components/Resource";
 import { DoughnutGraph } from "./Components/Doughnut";
 import RowItem from "./Components/RowItem";
 import { HalfDoughnutGraph } from "./Components/HalfDoughnut";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [data, setData] = useState(null);
+  const [connectionsPerSec, setConnectionsPerSec] = useState([]);
+  const [requestsPerSec, setRequestsPerSec] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/api");
+        const fetchedData = await response.json();
+
+        setData(fetchedData);
+        setConnectionsPerSec((prevConnections) => [
+          ...prevConnections,
+          fetchedData.conn_current,
+        ]);
+        setRequestsPerSec((prevRequests) => [
+          ...prevRequests,
+          fetchedData.req_current,
+        ]);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    const interval = setInterval(fetchData, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  function formatTime(ms) {
+    const hours = Math.floor(ms / 3600000);
+    const minutes = Math.floor((ms % 3600000) / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+
+    return `${hours ? hours + "h " : ""}${
+      minutes ? minutes + "m " : ""
+    }${seconds}s`;
+  }
+
   return (
     <>
       <div className={styles.container}>
@@ -63,10 +103,14 @@ function App() {
           <div className={styles.cardsRow}>
             <Box title={"Server"}>
               <div className={styles.rows}>
-                <RowItem title={"UPTIME"} value={"56m 12s"} divider />
-                <RowItem title={"PID"} value={"244"} divider />
-                <RowItem title={"WORKERS"} value={"4"} divider />
-                <RowItem title={"SERVER NAME"} value={"eXpServer"} />
+                <RowItem
+                  title={"UPTIME"}
+                  value={formatTime(data?.uptime_msec)}
+                  divider
+                />
+                <RowItem title={"PID"} value={data?.pid} divider />
+                <RowItem title={"WORKERS"} value={data?.workers} divider />
+                <RowItem title={"SERVER NAME"} value={data?.server_name} />
               </div>
             </Box>
             <Box title={"System Usage"}>
@@ -75,7 +119,9 @@ function App() {
               <span className={styles.subHeading} style={{ marginTop: "24px" }}>
                 RAM Usage
               </span>
-              <RAM value={70} />
+              <RAM
+                value={[data?.sys_ram_usage_bytes, data?.sys_ram_total_bytes]}
+              />
             </Box>
             <Box title={"Worker Usage"}>
               <span className={styles.subHeading}>CPU Usage</span>
@@ -89,39 +135,72 @@ function App() {
         </div>
         <div className={styles.cardsRow}>
           <Box title={"Connections/sec"}>
-            <LineGraph graphData={1} height={200} />
+            <LineGraph graphData={connectionsPerSec} height={200} />
           </Box>
           <Box title={"Requests/sec"}>
-            <LineGraph graphData={1} height={200} />
+            <LineGraph graphData={requestsPerSec} height={200} />
           </Box>
         </div>
         <div className={styles.cardsRow}>
           <Box title={"Connections"}>
             <div className={styles.rows}>
-              <RowItem title={"CURRENT"} value={"12"} divider />
-              <RowItem title={"TOTAL"} value={"13515"} />
+              <RowItem title={"CURRENT"} value={data?.conn_current} divider />
+              <RowItem title={"TOTAL"} value={data?.conn_total} />
             </div>
             <div className={styles.borderDivider}></div>
             <span className={styles.subHeading}>Connection tyes</span>
-            <DoughnutGraph graphData={1} />
+            <DoughnutGraph
+              graphData={[
+                data?.conn_total - data?.conn_errors - data?.conn_timeout,
+                data?.conn_errors,
+                data?.conn_timeout,
+              ]}
+            />
           </Box>
           <Box title={"Requests"}>
             <div className={styles.rows}>
-              <RowItem title={"CURRENT"} value={"12"} divider />
-              <RowItem title={"TOTAL"} value={"13515"} />
+              <RowItem title={"CURRENT"} value={data?.req_current} divider />
+              <RowItem
+                title={"TOTAL"}
+                value={
+                  data?.req_current +
+                  data?.req_file_serve +
+                  data?.req_reverse_proxy +
+                  data?.req_redirect
+                }
+              />
             </div>
             <div className={styles.borderDivider}></div>
             <span className={styles.subHeading}>Requests tyes</span>
-            <DoughnutGraph graphData={1} />
+            <DoughnutGraph
+              graphData={[
+                data?.req_file_serve,
+                data?.req_reverse_proxy,
+                data?.req_redirect,
+              ]}
+            />
           </Box>
           <Box title={"Responses"}>
             <div className={styles.rows}>
-              <RowItem title={"CURRENT"} value={"12"} divider />
-              <RowItem title={"TOTAL"} value={"13515"} />
+              <RowItem
+                title={"AVG. RES TIME"}
+                value={data?.res_avg_res_time_msec}
+                divider
+              />
+              <RowItem
+                title={"PEAK RES TIME"}
+                value={data?.res_peak_res_time_msec}
+              />
             </div>
             <div className={styles.borderDivider}></div>
             <span className={styles.subHeading}>Responses tyes</span>
-            <DoughnutGraph graphData={1} />
+            <DoughnutGraph
+              graphData={[
+                data?.res_code_3xx,
+                data?.res_code_4xx,
+                data?.res_code_5xx,
+              ]}
+            />
           </Box>
         </div>
         <div className={styles.cardsRow}>
@@ -129,8 +208,13 @@ function App() {
             <LineGraph graphData={1} height={200} />
           </Box>
           <Box title={"Total Traffic"}>
-            <span className={styles.subHeading}>RAM Usage</span>
-            <HalfDoughnutGraph graphData={1} margin={"-76px 0"} />
+            <HalfDoughnutGraph
+              graphData={[
+                data?.traffic_total_send_btyes,
+                data?.traffic_total_recv_bytes,
+              ]}
+              margin={"-76px 0"}
+            />
           </Box>
         </div>
       </div>
