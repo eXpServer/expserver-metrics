@@ -15,27 +15,32 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api");
+        const response = await fetch("http://localhost:8004/api");
         const fetchedData = await response.json();
 
         setData(fetchedData);
-        setConnectionsPerSec((prevConnections) => [
-          ...prevConnections,
-          fetchedData.conn_current,
-        ]);
-        setRequestsPerSec((prevRequests) => [
-          ...prevRequests,
-          fetchedData.req_current,
-        ]);
+
+        setConnectionsPerSec((conns) => [...conns, fetchedData?.conn_current]);
+        setRequestsPerSec((reqs) => [...reqs, fetchedData?.req_current]);
+
+        console.log(fetchedData);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
     };
 
-    const interval = setInterval(fetchData, 1000);
+    const interval = setInterval(fetchData, 5000);
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    console.log("Connections Per Second:", connectionsPerSec);
+  }, [connectionsPerSec]);
+
+  useEffect(() => {
+    console.log("Requests Per Second:", requestsPerSec);
+  }, [requestsPerSec]);
 
   function formatTime(ms) {
     const hours = Math.floor(ms / 3600000);
@@ -145,15 +150,25 @@ function App() {
           <Box title={"Connections"}>
             <div className={styles.rows}>
               <RowItem title={"CURRENT"} value={data?.conn_current} divider />
-              <RowItem title={"TOTAL"} value={data?.conn_total} />
+              <RowItem
+                title={"TOTAL"}
+                value={
+                  data?.conn_accepted +
+                  data?.conn_accepted_error +
+                  data?.conn_current +
+                  data?.conn_error +
+                  data?.conn_timeout
+                }
+              />
             </div>
             <div className={styles.borderDivider}></div>
             <span className={styles.subHeading}>Connection tyes</span>
             <DoughnutGraph
               graphData={[
-                data?.conn_total - data?.conn_errors - data?.conn_timeout,
+                data?.conn_accepted - data?.conn_errors - data?.conn_timeout,
                 data?.conn_errors,
                 data?.conn_timeout,
+                data?.conn_accepted_error,
               ]}
             />
           </Box>

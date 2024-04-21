@@ -40,24 +40,25 @@ export default function LineGraph({ graphData, height }) {
           datasets: [
             {
               label: "Dataset 1",
-              data: getRandomNumbers(60, 0.0, 1000000),
+              data: graphData,
               backgroundColor: "rgba(255, 99, 132, 0.5)",
               borderColor: "#737bff",
               borderWidth: 2,
               borderRadius: 0,
               lineTension: 0.2,
             },
-            {
-              label: "Dataset 2",
-              data: getRandomNumbers(60, 0.0, 1000000),
-              backgroundColor: "rgba(53, 162, 235, 0.5)",
-              borderColor: "#5cdf939c",
-              borderWidth: 2,
-              borderRadius: 0,
-              lineTension: 0.4,
-            },
+            // {
+            //   label: "Dataset 2",
+            //   data: getRandomNumbers(60, 0.0, 1000000),
+            //   backgroundColor: "rgba(53, 162, 235, 0.5)",
+            //   borderColor: "#5cdf939c",
+            //   borderWidth: 2,
+            //   borderRadius: 0,
+            //   lineTension: 0.4,
+            // },
           ],
           options: {
+            animation: { duration: 500 },
             plugins: {
               legend: false,
             },
