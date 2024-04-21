@@ -36,7 +36,7 @@ export default function LineGraph({ graphData, height }) {
     if (graphData) {
       setInterval(() => {
         const data = {
-          labels: getRandomNumbers(60, 0.0, 100),
+          labels: Array.from({ length: 60 }, (_, index) => -59 + index),
           datasets: [
             {
               label: "Dataset 1",
