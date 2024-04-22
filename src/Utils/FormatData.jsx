@@ -5,7 +5,6 @@ export default function formatData(rawData, prevRawData, prevData) {
 	let traffic_realtime_recv_graph
 
 	let conn_success = rawData?.conn_accepted - rawData?.conn_error - rawData?.conn_timeout
-	let req_total = rawData?.req_file_serve + rawData?.req_reverse_proxy + rawData?.req_redirect
 
 	if (prevData == null) {
 		connectionsPerSec = [0]
@@ -14,10 +13,7 @@ export default function formatData(rawData, prevRawData, prevData) {
 		traffic_realtime_recv_graph = [0]
 	} else {
 		let conn_per_sec = zeroNonInt(rawData?.conn_accepted - prevRawData?.conn_accepted)
-
-		let prev_req_total =
-			prevRawData?.req_file_serve + prevRawData?.req_reverse_proxy + prevRawData?.req_redirect
-		let req_per_sec = zeroNonInt(req_total - prev_req_total)
+		let req_per_sec = zeroNonInt(rawData?.req_total - prevRawData?.req_total)
 
 		connectionsPerSec = [...prevData.connectionsPerSec.slice(-60 + 1), conn_per_sec]
 		requestsPerSec = [...prevData.requestsPerSec.slice(-60 + 1), req_per_sec]
@@ -57,7 +53,7 @@ export default function formatData(rawData, prevRawData, prevData) {
 			zeroNonInt(rawData?.conn_accepted_error),
 		],
 		req_current: formatInt(rawData?.req_current),
-		req_total: formatInt(req_total),
+		req_total: formatInt(rawData?.req_total),
 		req_graph: [
 			zeroNonInt(rawData?.req_file_serve),
 			zeroNonInt(rawData?.req_reverse_proxy),
