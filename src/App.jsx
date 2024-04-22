@@ -12,26 +12,25 @@ import Blinker from './Components/Blinker'
 function App() {
 	let prevRawData = null
 	const [data, setData] = useState(formatData(null, null, null))
+	const [status, setStatus] = useState('Inactive')
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const res = await fetch('http://localhost:8004/api')
 				const newRawData = await res.json()
-				console.log(newRawData)
 				setData((prevData) => formatData(newRawData, prevRawData, prevData))
 				prevRawData = newRawData
+
+				setStatus('Active')
 			} catch (error) {
 				console.error('Error fetching data: ', error)
+				setStatus('Inactive')
 			}
 		}
 		const interval = setInterval(fetchData, 1000)
 		return () => clearInterval(interval)
 	}, [])
-
-	useEffect(() => {
-		console.log(data)
-	}, [data])
 
 	return (
 		<>
@@ -80,7 +79,7 @@ function App() {
 							/>
 						</defs>
 					</svg>
-					<Blinker status={'Active'} />
+					<Blinker status={status} />
 				</div>
 				<div className={styles.content}>
 					<div className={styles.cardsRow}>
@@ -103,6 +102,9 @@ function App() {
 								RAM Usage
 							</span>
 							<RAM values={data?.sys_ram} />
+							<span className={styles.cpuUsage}>
+								99.23<span className={styles.percentage}>%</span>
+							</span>
 						</Box>
 						<Box title={'Worker Usage'}>
 							<span className={styles.subHeading}>CPU Usage</span>

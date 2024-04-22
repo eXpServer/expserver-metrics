@@ -62,3 +62,20 @@ body {
 	display: flex;
 	gap: 20px;
 }
+
+.cpuUsage {
+	position: absolute;
+
+	font-size: 28px;
+	font-weight: 600;
+
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: calc(50% - 56px);
+}
+
+.percentage {
+	font-size: 18px;
+	color: var(--grey);
+	margin-left: 2px;
+}

@@ -51,9 +51,9 @@ export function HalfDoughnutGraph({ graphData, margin, labels, colors = [] }) {
 							position: 'bottom',
 						},
 					},
-					rotation: -90,
-					circumference: 180,
-					cutout: '65%',
+					rotation: -105,
+					circumference: 210,
+					cutout: '75%',
 				},
 			}
 			setData(data)
