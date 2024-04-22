@@ -1,31 +1,42 @@
-.outer {
-  border-radius: 100px;
-  background-color: var(--green-light);
-  height: 24px;
-  width: 24px;
+.container {
+	display: flex;
+	gap: 10px;
+	align-items: center;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--white);
+
+	padding: 6px 14px;
+	border-radius: 100px;
+}
+
+.outer {
+	border-radius: 100px;
+	height: 24px;
+	width: 24px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .inner {
-  border-radius: 100px;
-  background-color: var(--green);
-  height: 11px;
-  width: 11px;
+	border-radius: 100px;
+	height: 14px;
+	width: 14px;
 
-  animation: heartbeat 1.2s infinite;
+	animation: heartbeat 1.2s infinite;
 }
 
 @keyframes heartbeat {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
 }

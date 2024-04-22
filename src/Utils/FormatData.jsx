@@ -7,6 +7,16 @@ export default function formatData(rawData, prevRawData, prevData) {
 	let conn_success = rawData?.conn_accepted - rawData?.conn_error - rawData?.conn_timeout
 	let req_total = rawData?.req_file_serve + rawData?.req_reverse_proxy + rawData?.req_redirect
 
+	let server_cpu_time_change = zeroNonInt(
+		rawData?.server_cpu_usage_time_msec - prevRawData?.server_cpu_usage_time_msec
+	)
+	let uptime_change = zeroNonInt(rawData?.uptime_msec - prevRawData?.uptime_msec)
+
+	let server_cpu_percent = 0
+	if (uptime_change > 0) {
+		server_cpu_percent = ((server_cpu_time_change * 100) / uptime_change).toFixed(2)
+	}
+
 	if (prevData == null) {
 		connectionsPerSec = [0]
 		requestsPerSec = [0]
@@ -45,7 +55,15 @@ export default function formatData(rawData, prevRawData, prevData) {
 		pid: rawData?.pid ?? '--',
 		workers: rawData?.workers ?? '--',
 		server_name: rawData?.server_name ?? '--',
+		sys_cpu_usage_percent: isNumber(rawData?.sys_cpu_usage_percent)
+			? rawData?.sys_cpu_usage_percent
+			: 0,
 		sys_ram: [zeroNonInt(rawData?.sys_ram_usage_bytes), zeroNonInt(rawData?.sys_ram_total_bytes)],
+		server_ram: [
+			zeroNonInt(rawData?.server_ram_usage_bytes),
+			zeroNonInt(rawData?.sys_ram_total_bytes),
+		],
+		server_cpu_percent: server_cpu_percent,
 		connectionsPerSec: connectionsPerSec,
 		requestsPerSec: requestsPerSec,
 		conn_current: formatInt(rawData?.conn_current),
@@ -98,4 +116,8 @@ function formatTime(ms) {
 	const minutes = Math.floor((ms % 3600000) / 60000)
 	const seconds = Math.floor((ms % 60000) / 1000)
 	return `${hours ? hours + 'h ' : ''}${minutes ? minutes + 'm ' : ''}${seconds}s`
+}
+
+function isNumber(num) {
+	return typeof num === 'number' && !isNaN(num)
 }

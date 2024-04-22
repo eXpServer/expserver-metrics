@@ -1,57 +1,57 @@
 .resource-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
 
 .resource-content {
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
+	display: flex;
+	flex-direction: column;
+	gap: 11px;
 }
 
 .ramContainer {
-  display: flex;
-  justify-self: flex-end;
-  margin-top: auto;
-  width: 100%;
+	display: flex;
+	justify-self: flex-end;
+	margin-top: auto;
+	width: 100%;
 }
 
 .cpusContainer {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
 }
 
 .cpuRow {
-  display: flex;
-  gap: 10px;
+	display: flex;
+	gap: 10px;
 }
 
 .cpu {
-  display: flex;
-  gap: 6px;
-  align-items: center;
+	display: flex;
+	gap: 6px;
+	align-items: center;
 
-  font-size: 10px;
-  color: var(--black);
+	font-size: 10px;
+	color: var(--black);
 }
 
 .thread {
-  text-align: right;
-  width: 20px;
+	text-align: right;
+	width: 14px;
 }
 
 .bars {
-  display: flex;
-  /* gap: 2px; */
+	display: flex;
+	gap: 2px;
 }
 
 .value {
-  color: var(--grey);
+	color: var(--grey);
 }
 
 .bar {
-  height: 10px;
-  width: 2px;
+	height: 10px;
+	width: 2px;
 }

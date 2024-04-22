@@ -24,7 +24,7 @@ export default function LineGraph({ graphData, height }) {
 					{
 						label: 'Dataset 1',
 						data: graphData[0],
-						backgroundColor: 'rgba(255, 99, 132, 0.5)',
+						backgroundColor: '#737bff',
 						borderColor: '#737bff',
 						borderWidth: 2,
 						borderRadius: 0,
@@ -33,7 +33,7 @@ export default function LineGraph({ graphData, height }) {
 					{
 						label: 'Dataset 2',
 						data: graphData[1],
-						backgroundColor: 'rgba(53, 162, 235, 0.5)',
+						backgroundColor: '#5cdf939c',
 						borderColor: '#5cdf939c',
 						borderWidth: 2,
 						borderRadius: 0,
@@ -43,7 +43,9 @@ export default function LineGraph({ graphData, height }) {
 				options: {
 					animation: { duration: 0 },
 					plugins: {
-						legend: false,
+						legend: {
+							position: 'bottom',
+						},
 					},
 					interaction: {
 						mode: 'index',

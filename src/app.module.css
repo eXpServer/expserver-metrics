@@ -33,6 +33,12 @@ body {
 	margin: 20px;
 }
 
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .rows {
 	display: flex;
 	width: 100%;

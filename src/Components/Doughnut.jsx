@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './doughnut.module.css'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-export function DoughnutGraph({ graphData, labels }) {
+export function DoughnutGraph({ graphData = null, labels }) {
 	const [data, setData] = useState(null)
 
 	useEffect(() => {
-		if (graphData) {
+		if (graphData && graphData.reduce((acc, currentValue) => acc + currentValue, 0) > 0) {
 			const data = {
 				labels: labels,
 				datasets: [
 					{
-						// label: "# of Votes",
 						data: graphData,
-						borderRadius: 5,
 						backgroundColor: [
 							'rgba(255, 99, 132, 1)',
 							'rgba(54, 162, 235, 1)',
@@ -40,17 +38,39 @@ export function DoughnutGraph({ graphData, labels }) {
 							'rgba(12, 222, 176, 1)',
 							'rgba(96, 54, 199, 1)',
 						],
-						borderWidth: 1,
+						borderRadius: 5,
 					},
 				],
 				options: {
 					plugins: {
-						legend: false,
+						legend: {
+							position: 'bottom',
+						},
 					},
 					cutout: '65%',
 				},
 			}
 			setData(data)
+		} else {
+			const greyData = {
+				labels: ['No data'],
+				datasets: [
+					{
+						data: [1],
+						backgroundColor: ['rgba(0,0,0,0.1)'],
+						borderRadius: 5,
+					},
+				],
+				options: {
+					plugins: {
+						legend: {
+							position: 'bottom',
+						},
+					},
+					cutout: '65%',
+				},
+			}
+			setData(greyData)
 		}
 	}, [graphData])
 
