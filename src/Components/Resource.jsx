@@ -72,7 +72,7 @@ function Resource({ thread = null, value, maxValue, length, showValue = true, pe
 			</div>
 			{showValue ? (
 				<span className={styles.value}>
-					{FormatSize(value) + '/' + FormatSize(maxValue)}
+					{FormatSize(value, 2, false) + '/' + FormatSize(maxValue, 2, false)}
 					{percentage ? '%' : null}
 				</span>
 			) : null}

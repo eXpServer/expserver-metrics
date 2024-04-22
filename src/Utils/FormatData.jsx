@@ -22,8 +22,12 @@ export default function formatData(rawData, prevRawData, prevData) {
 		traffic_realtime_send_graph = [0]
 		traffic_realtime_recv_graph = [0]
 	} else {
-		let conn_per_sec = zeroNonInt(rawData?.conn_accepted - prevRawData?.conn_accepted)
-		let req_per_sec = zeroNonInt(rawData?.req_total - prevRawData?.req_total)
+		let conn_per_sec = zeroNonInt(
+			rawData?.conn_accepted - prevRawData?.conn_accepted + prevRawData?.conn_current - 1
+		)
+		let req_per_sec = zeroNonInt(
+			rawData?.req_total - prevRawData?.req_total + prevRawData?.req_current - 1
+		)
 
 		connectionsPerSec = [...prevData.connectionsPerSec.slice(-60 + 1), conn_per_sec]
 		requestsPerSec = [...prevData.requestsPerSec.slice(-60 + 1), req_per_sec]
@@ -92,8 +96,6 @@ export default function formatData(rawData, prevRawData, prevData) {
 			zeroNonInt(rawData?.traffic_total_recv_bytes),
 		],
 	}
-
-	console.log(formattedData)
 
 	return formattedData
 }

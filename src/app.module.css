@@ -18,7 +18,7 @@ html,
 body {
 	margin: 0px;
 	font-family: sans-serif;
-	/* background-color: rgb(241, 242, 244); */
+	background-color: var(--white);
 }
 
 * {
@@ -37,6 +37,7 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin-bottom: 10px;
 }
 
 .rows {
@@ -61,21 +62,4 @@ body {
 .cardsRow {
 	display: flex;
 	gap: 20px;
-}
-
-.cpuUsage {
-	position: absolute;
-
-	font-size: 28px;
-	font-weight: 600;
-
-	left: 50%;
-	transform: translateX(-50%);
-	bottom: calc(50% - 56px);
-}
-
-.percentage {
-	font-size: 18px;
-	color: var(--grey);
-	margin-left: 2px;
 }

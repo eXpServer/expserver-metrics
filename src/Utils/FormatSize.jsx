@@ -1,6 +1,8 @@
-export default function FormatSize(bytes) {
-	if (bytes >= 1024 * 1024 * 1024) return (bytes / (1024 * 1024 * 1024)).toFixed(2) + 'G'
-	else if (bytes >= 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(2) + 'M'
-	else if (bytes >= 1024) return (bytes / 1024).toFixed(2) + 'K'
-	else return bytes + 'B'
+export default function FormatSize(bytes, toFixed = 2, expanded = false) {
+	if (bytes >= 1024 * 1024 * 1024)
+		return `${(bytes / (1024 * 1024 * 1024)).toFixed(toFixed)}${expanded ? 'GB' : 'G'}`
+	else if (bytes >= 1024 * 1024)
+		return `${(bytes / (1024 * 1024)).toFixed(toFixed)}${expanded ? 'MB' : 'M'}`
+	else if (bytes >= 1024) return `${(bytes / 1024).toFixed(toFixed)}${expanded ? 'KB' : 'K'}`
+	else return `${bytes}`
 }

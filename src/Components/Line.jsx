@@ -10,16 +10,25 @@ import {
 } from 'chart.js'
 import { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
+import FormatSize from '../Utils/FormatSize'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip)
 
 export default function LineGraph({ graphData, height }) {
 	const [data, setData] = useState()
 
+	function generateArray(length) {
+		if (length === 0) return Array.from({ length: 60 }, (_, i) => i)
+		if (length === 60) return Array.from({ length: 60 }, (_, i) => i - length)
+		return Array.from({ length: 60 }, (_, i) => i - (length - 1))
+	}
+
 	useEffect(() => {
 		if (graphData) {
+			const labels = generateArray(graphData[0]?.length)
+
 			const data = {
-				labels: Array.from({ length: 60 }, (_, index) => -59 + index),
+				labels: labels,
 				datasets: [
 					{
 						label: 'Dataset 1',
@@ -57,10 +66,20 @@ export default function LineGraph({ graphData, height }) {
 								display: true,
 								text: 'Seconds ago',
 							},
+							ticks: {
+								maxTicksLimit: 6,
+							},
 						},
 						y: {
+							title: {
+								display: true,
+								text: 'Bytes /s',
+							},
 							ticks: {
 								stepSize: 1000,
+								callback: function (value) {
+									return FormatSize(value, 1, false)
+								},
 							},
 						},
 					},

@@ -11,17 +11,7 @@ export default function Blinker({ status }) {
 		>
 			<span className={styles.status}>{status}</span>
 			<div className={styles.outer}>
-				<div
-					className={styles.inner}
-					style={{
-						backgroundColor:
-							status == 'Active'
-								? 'var(--green-light)'
-								: status == 'Inactive'
-								? 'var(--red-light)'
-								: null,
-					}}
-				></div>
+				<div className={styles.inner}></div>
 			</div>
 		</div>
 	)
