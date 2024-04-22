@@ -1,19 +1,33 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 18px;
-  font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 50px;
 }
 
 .key {
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.7px;
-  color: var(--grey);
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.7px;
+	color: var(--grey);
+}
+
+.right {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.value {
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.unit {
+	font-size: 11px;
+	color: var(--grey);
 }
 
 .divider {
-  display: flex;
-  border-bottom: 1px dashed var(--grey10);
+	border-bottom: 1px dashed var(--grey10);
 }

@@ -9,17 +9,17 @@ import { useEffect, useState } from 'react'
 import formatData from './Utils/FormatData'
 
 function App() {
-	const [data, setData] = useState(null)
+	let prevRawData = null
+	const [data, setData] = useState(formatData(null, null, null))
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch('http://localhost:8004/api')
-				const fetchedData = await response.json()
-
-				console.log(fetchedData)
-
-				setData((prevData) => formatData(fetchedData, prevData))
+				const res = await fetch('http://localhost:8004/api')
+				const newRawData = await res.json()
+				console.log(newRawData)
+				setData((prevData) => formatData(newRawData, prevRawData, prevData))
+				prevRawData = newRawData
 			} catch (error) {
 				console.error('Error fetching data: ', error)
 			}
@@ -27,10 +27,6 @@ function App() {
 		const interval = setInterval(fetchData, 1000)
 		return () => clearInterval(interval)
 	}, [])
-
-	useEffect(() => {
-		console.log(data)
-	}, [data])
 
 	return (
 		<>
@@ -78,11 +74,12 @@ function App() {
 						/>
 					</defs>
 				</svg>
+
 				<div className={styles.content}>
 					<div className={styles.cardsRow}>
 						<Box title={'Server'}>
 							<div className={styles.rows}>
-								<RowItem title={'UPTIME'} value={data?.uptime_msec} divider />
+								<RowItem title={'UPTIME'} value={data?.uptime} divider />
 								<RowItem title={'PID'} value={data?.pid} divider />
 								<RowItem title={'WORKERS'} value={data?.workers} divider />
 								<RowItem title={'SERVER NAME'} value={data?.server_name} />
@@ -150,8 +147,13 @@ function App() {
 					</Box>
 					<Box title={'Responses'}>
 						<div className={styles.rows}>
-							<RowItem title={'AVG. RES TIME'} value={data?.res_avg_res_time_msec} divider />
-							<RowItem title={'PEAK RES TIME'} value={data?.res_peak_res_time_msec} />
+							<RowItem
+								title={'AVG. RES TIME'}
+								value={data?.res_avg_res_time_msec}
+								divider
+								unit={'msec'}
+							/>
+							<RowItem title={'PEAK RES TIME'} value={data?.res_peak_res_time_msec} unit={'msec'} />
 						</div>
 						<div className={styles.borderDivider}></div>
 						<span className={styles.subHeading}>Responses tyes</span>
