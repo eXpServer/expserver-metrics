@@ -90,6 +90,7 @@ export default function RealtimeTraffic({ graphData }) {
 									return FormatSize(value, 1, false)
 								},
 							},
+							min: 0,
 						},
 					},
 					elements: {

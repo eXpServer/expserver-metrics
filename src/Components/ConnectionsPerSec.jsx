@@ -10,7 +10,6 @@ import {
 } from 'chart.js'
 import { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
-import FormatSize from '../Utils/FormatSize'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip)
 
@@ -81,10 +80,8 @@ export default function ConnectionsPerSec({ graphData }) {
 							},
 							ticks: {
 								stepSize: 1000,
-								callback: function (value) {
-									return FormatSize(value, 1, false)
-								},
 							},
+							min: 0,
 						},
 					},
 					elements: {

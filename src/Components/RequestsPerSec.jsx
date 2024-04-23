@@ -77,6 +77,7 @@ export default function RequestsPerSec({ graphData }) {
 							ticks: {
 								stepSize: 1000,
 							},
+							min: 0,
 						},
 					},
 					elements: {
