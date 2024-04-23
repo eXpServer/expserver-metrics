@@ -124,17 +124,11 @@ function App() {
 							<SystemUsage
 								graphData={[data?.sys_cpu_usage_percent, 100 - data?.sys_cpu_usage_percent]}
 							/>
-							<span className={styles.subHeading} style={{ marginTop: '24px' }}>
-								RAM Usage
-							</span>
 							<RAM values={data?.sys_ram} />
 						</Box>
 						<Box title={'Worker Usage'}>
 							<span className={styles.subHeading}>CPU Usage</span>
-							<CPUS values={[data?.server_cpu_percent]} />
-							<span className={styles.subHeading} style={{ marginTop: '24px' }}>
-								RAM Usage
-							</span>
+							<CPUS values={[data?.server_cpu_percent, data?.server_cpu_percent]} />
 							<RAM values={data?.server_ram} />
 						</Box>
 					</div>

@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 export function Requests({ graphData = null }) {
 	const [data, setData] = useState(null)
 
-	const colors = ['#00c414', '#e01818', '#f3dc07', 'rgba(255, 159, 64, 1)']
+	const colors = ['#3A86FF', '#B5F44A', '#4CC9F0']
 
 	useEffect(() => {
 		if (graphData && graphData.reduce((acc, currentValue) => acc + currentValue, 0) > 0) {

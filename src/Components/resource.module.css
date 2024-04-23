@@ -1,57 +1,61 @@
-.resource-container {
+.ramHeader {
 	display: flex;
-	flex-direction: column;
-	gap: 20px;
-}
-
-.resource-content {
-	display: flex;
-	flex-direction: column;
-	gap: 11px;
-}
-
-.ramContainer {
-	display: flex;
-	justify-self: flex-end;
-	margin-top: auto;
-	width: 100%;
-}
-
-.cpusContainer {
-	display: flex;
-	gap: 6px;
-	flex-wrap: wrap;
-}
-
-.cpuRow {
-	display: flex;
-	gap: 10px;
-}
-
-.cpu {
-	display: flex;
-	gap: 6px;
+	justify-content: space-between;
 	align-items: center;
 
-	font-size: 10px;
-	color: var(--black);
+	font-size: 12px;
+	font-weight: 600;
+	padding-bottom: 12px;
+	margin-top: 28px;
 }
 
-.thread {
-	text-align: right;
-	width: 14px;
-}
-
-.bars {
-	display: flex;
-	gap: 2px;
-}
-
-.value {
+.ramValues {
+	text-align: end;
 	color: var(--grey);
 }
 
-.bar {
-	height: 10px;
-	width: 2px;
+.cpus {
+	align-items: flex-start;
+	justify-content: flex-start;
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.cpuWrapper {
+	display: flex;
+	gap: 4px;
+	justify-content: center;
+	align-items: center;
+}
+
+.cpuIndex,
+.cpuPercentage {
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--grey);
+}
+
+.cpuIndex {
+	width: 20px;
+	text-align: right;
+}
+
+.cpuPercentage {
+	width: 45px;
+	text-align: left;
+}
+
+.resourceBar {
+	display: flex;
+	width: 100%;
+	height: 20px;
+	background-color: var(--grey10);
+	border-radius: 4px;
+}
+
+.progress {
+	display: flex;
+	height: 20px;
+	border-radius: 4px;
 }
