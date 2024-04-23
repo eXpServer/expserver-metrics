@@ -48,6 +48,17 @@ export default function ConnectionsPerSec({ graphData }) {
 						legend: {
 							display: false,
 						},
+						tooltip: {
+							callbacks: {
+								title: function (context) {
+									return `${Math.abs(context[0].dataIndex + labels[0])} sec ago`
+								},
+
+								label: function () {
+									return `Connections: ${graphData[graphData.length - 1]}`
+								},
+							},
+						},
 					},
 					interaction: {
 						mode: 'index',

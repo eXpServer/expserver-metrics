@@ -31,6 +31,9 @@ export function TotalTraffic({ graphData = null, labels }) {
 						legend: {
 							display: false,
 						},
+						tooltip: {
+							enabled: false,
+						},
 					},
 				},
 			}

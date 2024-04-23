@@ -47,6 +47,13 @@ export default function RequestsPerSec({ graphData }) {
 						legend: {
 							display: false,
 						},
+						tooltip: {
+							callbacks: {
+								title: function (context) {
+									return `${Math.abs(context[0].dataIndex + labels[0])} sec ago`
+								},
+							},
+						},
 					},
 					interaction: {
 						mode: 'index',
