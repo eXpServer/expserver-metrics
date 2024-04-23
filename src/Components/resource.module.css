@@ -15,10 +15,8 @@
 }
 
 .cpus {
-	align-items: flex-start;
-	justify-content: flex-start;
 	display: flex;
-	gap: 10px;
+	justify-content: space-between;
 	flex-wrap: wrap;
 }
 
@@ -27,6 +25,9 @@
 	gap: 4px;
 	justify-content: center;
 	align-items: center;
+
+	flex-grow: 1;
+	margin-right: 4px;
 }
 
 .cpuIndex,

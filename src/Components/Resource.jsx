@@ -31,7 +31,7 @@ function CPU({ value }) {
 		<>
 			<div className={styles.cpuWrapper}>
 				<span className={styles.cpuIndex}>0</span>
-				<ResourceBar value={value} width={35} />
+				<ResourceBar value={value} />
 				<span className={styles.cpuPercentage}>{value}%</span>
 			</div>
 		</>
@@ -49,7 +49,7 @@ function ResourceBar({ value, maxValue = 100, width = 100 }) {
 				style={{
 					backgroundColor:
 						percentage < 40 ? 'var(--green)' : percentage < 80 ? 'var(--yellow)' : 'var(--red)',
-					width: `${progressWidth}px`,
+					width: `${progressWidth}%`,
 				}}
 			></div>
 		</div>
