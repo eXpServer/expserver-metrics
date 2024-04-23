@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 export function Responses({ graphData = null }) {
 	const [data, setData] = useState(null)
 
-	const colors = ['#53599A', '#4B2E39', '#E2711D', '#FFB8D1']
+	const colors = ['#53599A', '#FFB8D1', '#E2711D', '#4B2E39']
 	const labels = ['2xx', '3xx', '4xx', '5xx']
 
 	useEffect(() => {
