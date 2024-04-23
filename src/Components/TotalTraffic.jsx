@@ -6,7 +6,7 @@ import FormatSize from '../Utils/FormatSize'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-export function TotalTraffic({ graphData, labels }) {
+export function TotalTraffic({ graphData = null, labels }) {
 	const [data, setData] = useState(null)
 
 	const colors = ['rgba(75, 192, 192, 1)', 'rgba(255, 206, 86, 1)']
@@ -35,6 +35,29 @@ export function TotalTraffic({ graphData, labels }) {
 				},
 			}
 			setData(data)
+		} else {
+			const greyData = {
+				labels: ['No data'],
+				datasets: [
+					{
+						data: [1],
+						backgroundColor: ['rgba(0,0,0,0.1)'],
+						borderWidth: 1,
+						borderRadius: 5,
+					},
+				],
+				options: {
+					rotation: -105,
+					circumference: 210,
+					cutout: '80%',
+					plugins: {
+						legend: {
+							display: false,
+						},
+					},
+				},
+			}
+			setData(greyData)
 		}
 	}, [graphData])
 

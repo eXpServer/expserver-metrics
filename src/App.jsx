@@ -9,6 +9,12 @@ import formatData from './Utils/FormatData'
 import Blinker from './Components/Blinker'
 import { SystemUsage } from './Components/SystemUsage'
 import { TotalTraffic } from './Components/TotalTraffic'
+import RealtimeTraffic from './Components/RealtimeTraffic'
+import ConnectionsPerSec from './Components/ConnectionsPerSec'
+import RequestsPerSec from './Components/RequestsPerSec'
+import { Connections } from './Components/Connections'
+import { Requests } from './Components/Requests'
+import { Responses } from './Components/Responses'
 
 function App() {
 	let prevRawData = null
@@ -135,7 +141,7 @@ function App() {
 				</div>
 				<div className={styles.cardsRow}>
 					<Box title={'Realtime Traffic'} width={4000}>
-						<LineGraph
+						<RealtimeTraffic
 							graphData={[data?.traffic_realtime_send_graph, data?.traffic_realtime_recv_graph]}
 							height={200}
 						/>
@@ -146,10 +152,10 @@ function App() {
 				</div>
 				<div className={styles.cardsRow}>
 					<Box title={'Connections/sec'}>
-						<LineGraph graphData={[data?.connectionsPerSec, null]} height={200} />
+						<ConnectionsPerSec graphData={data?.connectionsPerSec} />
 					</Box>
 					<Box title={'Requests/sec'}>
-						<LineGraph graphData={[data?.requestsPerSec, null]} height={200} />
+						<RequestsPerSec graphData={data?.requestsPerSec} />
 					</Box>
 				</div>
 				<div className={styles.cardsRow}>
@@ -160,10 +166,7 @@ function App() {
 						</div>
 						<div className={styles.borderDivider}></div>
 						<span className={styles.subHeading}>Connection tyes</span>
-						<DoughnutGraph
-							graphData={data?.conn_graph}
-							labels={['Success', 'Error', 'Timeout', 'Accepted error']}
-						/>
+						<Connections graphData={data?.conn_graph} />
 					</Box>
 					<Box title={'Requests'}>
 						<div className={styles.rows}>
@@ -172,10 +175,7 @@ function App() {
 						</div>
 						<div className={styles.borderDivider}></div>
 						<span className={styles.subHeading}>Requests tyes</span>
-						<DoughnutGraph
-							graphData={data?.req_graph}
-							labels={['File serve', 'Reverse proxy', 'Redirect']}
-						/>
+						<Requests graphData={data?.req_graph} />
 					</Box>
 					<Box title={'Responses'}>
 						<div className={styles.rows}>
@@ -189,7 +189,7 @@ function App() {
 						</div>
 						<div className={styles.borderDivider}></div>
 						<span className={styles.subHeading}>Responses tyes</span>
-						<DoughnutGraph graphData={data?.res_graph} labels={['2xx', '3xx', '4xx', '5xx']} />
+						<Responses graphData={data?.res_graph} />
 					</Box>
 				</div>
 			</div>
