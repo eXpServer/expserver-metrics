@@ -52,10 +52,6 @@ export default function ConnectionsPerSec({ graphData }) {
 								title: function (context) {
 									return `${Math.abs(context[0].dataIndex + labels[0])} sec ago`
 								},
-
-								label: function () {
-									return `Connections: ${graphData[graphData.length - 1]}`
-								},
 							},
 						},
 					},

@@ -62,6 +62,11 @@ export default function RealtimeTraffic({ graphData }) {
 								title: function (context) {
 									return `${Math.abs(context[0].dataIndex + labels[0])} sec ago`
 								},
+								label: function (context) {
+									return `${context.datasetIndex == 0 ? 'Send: ' : 'Recv: '}${FormatSize(
+										graphData[context.datasetIndex][graphData[context.datasetIndex].length - 1]
+									)}`
+								},
 							},
 						},
 					},
@@ -90,7 +95,6 @@ export default function RealtimeTraffic({ graphData }) {
 									return FormatSize(value, 1, false)
 								},
 							},
-							min: 0,
 						},
 					},
 					elements: {
