@@ -55,7 +55,7 @@ export default function RealtimeTraffic({ graphData }) {
 					animation: { duration: 0 },
 					plugins: {
 						legend: {
-							position: 'bottom',
+							display: false,
 						},
 					},
 					interaction: {
@@ -98,8 +98,24 @@ export default function RealtimeTraffic({ graphData }) {
 	}, [graphData])
 
 	return (
-		<div className={styles.container}>
-			{data ? <Line data={data} options={data?.options} height={200} /> : null}
-		</div>
+		<>
+			<div className={styles.wrapper}>
+				{data ? <Line data={data} options={data?.options} height={200} /> : null}
+			</div>
+			<div className={styles.legendWrapper}>
+				<div className={styles.legend}>
+					<div className={styles.legendColor} style={{ backgroundColor: colors[0] }}></div>
+					<div className={styles.legendValue}>
+						<span className={styles.legendTitle}>Send</span>
+					</div>
+				</div>
+				<div className={styles.legend}>
+					<div className={styles.legendColor} style={{ backgroundColor: colors[1] }}></div>
+					<div className={styles.legendValue}>
+						<span className={styles.legendTitle}>Recv</span>
+					</div>
+				</div>
+			</div>
+		</>
 	)
 }

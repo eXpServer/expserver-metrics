@@ -62,7 +62,7 @@ export function TotalTraffic({ graphData = null, labels }) {
 	}, [graphData])
 
 	return (
-		<div className={styles.container} style={{ margin: '-40px 0', width: '60%' }}>
+		<div className={styles.container} style={{ margin: '-40px 0', width: '70%' }}>
 			{data ? <Doughnut data={data} options={data.options} /> : null}
 			<div className={styles.totalTraffic}>
 				<span className={styles.totalTrafficValue}>

@@ -8,12 +8,13 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 export function Requests({ graphData = null }) {
 	const [data, setData] = useState(null)
 
+	const labels = ['File serve', 'Reverse proxy', 'Redirect']
 	const colors = ['#3A86FF', '#B5F44A', '#4CC9F0']
 
 	useEffect(() => {
 		if (graphData && graphData.reduce((acc, currentValue) => acc + currentValue, 0) > 0) {
 			const data = {
-				labels: ['File serve', 'Reverse proxy', 'Redirect'],
+				labels: labels,
 				datasets: [
 					{
 						data: graphData,
@@ -24,7 +25,7 @@ export function Requests({ graphData = null }) {
 				options: {
 					plugins: {
 						legend: {
-							position: 'bottom',
+							display: false,
 						},
 					},
 					cutout: '80%',
@@ -44,7 +45,7 @@ export function Requests({ graphData = null }) {
 				options: {
 					plugins: {
 						legend: {
-							position: 'bottom',
+							display: false,
 						},
 					},
 					cutout: '80%',
@@ -57,6 +58,17 @@ export function Requests({ graphData = null }) {
 	return (
 		<div className={styles.container}>
 			{data ? <Doughnut data={data} options={data.options} /> : null}
+			<div className={styles.legendWrapper}>
+				{graphData?.map((value, index) => (
+					<div key={index} className={styles.legend}>
+						<div className={styles.legendColor} style={{ backgroundColor: colors[index] }}></div>
+						<div className={styles.legendValue}>
+							{value}
+							<span className={styles.legendTitle}>{labels[index]}</span>
+						</div>
+					</div>
+				))}
+			</div>
 		</div>
 	)
 }

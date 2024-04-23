@@ -9,11 +9,12 @@ export function Connections({ graphData = null }) {
 	const [data, setData] = useState(null)
 
 	const colors = ['#00c414', '#e01818', '#f3dc07', 'rgba(255, 159, 64, 1)']
+	const labels = ['Success', 'Error', 'Timeout', 'Accepted error']
 
 	useEffect(() => {
 		if (graphData && graphData.reduce((acc, currentValue) => acc + currentValue, 0) > 0) {
 			const data = {
-				labels: ['Success', 'Error', 'Timeout', 'Accepted error'],
+				labels: labels,
 				datasets: [
 					{
 						data: graphData,
@@ -24,7 +25,7 @@ export function Connections({ graphData = null }) {
 				options: {
 					plugins: {
 						legend: {
-							position: 'bottom',
+							display: false,
 						},
 					},
 					cutout: '80%',
@@ -44,7 +45,7 @@ export function Connections({ graphData = null }) {
 				options: {
 					plugins: {
 						legend: {
-							position: 'bottom',
+							display: false,
 						},
 					},
 					cutout: '80%',
@@ -57,6 +58,17 @@ export function Connections({ graphData = null }) {
 	return (
 		<div className={styles.container}>
 			{data ? <Doughnut data={data} options={data.options} /> : null}
+			<div className={styles.legendWrapper}>
+				{graphData?.map((value, index) => (
+					<div key={index} className={styles.legend}>
+						<div className={styles.legendColor} style={{ backgroundColor: colors[index] }}></div>
+						<div className={styles.legendValue}>
+							{value}
+							<span className={styles.legendTitle}>{labels[index]}</span>
+						</div>
+					</div>
+				))}
+			</div>
 		</div>
 	)
 }

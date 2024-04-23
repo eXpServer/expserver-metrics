@@ -1,5 +1,47 @@
 .container {
-  display: flex;
-  width: 70%;
-  align-self: center;
+	display: flex;
+	flex-direction: column;
+	width: 70%;
+	align-self: center;
+}
+
+/* legend */
+
+.legendWrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	flex-grow: 1;
+	flex-basis: 0;
+	min-width: 0;
+
+	margin: 24px -10% 6px;
+}
+
+.legend {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.legendValue {
+	display: flex;
+	flex-direction: column;
+}
+
+.legendColor {
+	height: 24px;
+	width: 24px;
+	border-radius: 4px;
+	flex-shrink: 0;
+}
+
+.legendTitle {
+	font-size: 10px;
+	color: var(--grey);
+	margin-top: -1px;
+	white-space: nowrap;
 }

@@ -1,2 +1,40 @@
 .container {
 }
+
+/* legend */
+
+.legendWrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 16px;
+
+	margin: 18px 0 6px;
+}
+
+.legend {
+	display: flex;
+	gap: 4px;
+	align-items: center;
+
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.legendValue {
+	display: flex;
+	flex-direction: column;
+}
+
+.legendColor {
+	height: 18px;
+	width: 18px;
+	border-radius: 4px;
+	flex-shrink: 0;
+}
+
+.legendTitle {
+	font-size: 12px;
+	color: var(--grey);
+	white-space: nowrap;
+}

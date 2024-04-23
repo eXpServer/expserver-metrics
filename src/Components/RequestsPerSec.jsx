@@ -45,7 +45,7 @@ export default function RequestsPerSec({ graphData }) {
 					animation: { duration: 0 },
 					plugins: {
 						legend: {
-							position: 'bottom',
+							display: false,
 						},
 					},
 					interaction: {
@@ -85,8 +85,18 @@ export default function RequestsPerSec({ graphData }) {
 	}, [graphData])
 
 	return (
-		<div className={styles.container}>
-			{data ? <Line data={data} options={data?.options} height={200} /> : null}
-		</div>
+		<>
+			<div className={styles.container}>
+				{data ? <Line data={data} options={data?.options} height={200} /> : null}
+			</div>
+			<div className={styles.legendWrapper}>
+				<div className={styles.legend}>
+					<div className={styles.legendColor} style={{ backgroundColor: color }}></div>
+					<div className={styles.legendValue}>
+						<span className={styles.legendTitle}>Requests</span>
+					</div>
+				</div>
+			</div>
+		</>
 	)
 }
