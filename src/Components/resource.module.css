@@ -15,9 +15,9 @@
 }
 
 .cpus {
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px 0;
 }
 
 .cpuWrapper {
@@ -28,6 +28,7 @@
 
 	flex-grow: 1;
 	margin-right: 4px;
+	min-width: 100px;
 }
 
 .cpuIndex,

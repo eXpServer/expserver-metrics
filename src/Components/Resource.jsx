@@ -20,17 +20,17 @@ export function CPUS({ values }) {
 	return (
 		<div className={styles.cpus}>
 			{values?.map((value, index) => (
-				<CPU key={index} value={value} />
+				<CPU key={index} value={value} index={index} />
 			))}
 		</div>
 	)
 }
 
-function CPU({ value }) {
+function CPU({ value, index }) {
 	return (
 		<>
 			<div className={styles.cpuWrapper}>
-				<span className={styles.cpuIndex}>0</span>
+				<span className={styles.cpuIndex}>{index}</span>
 				<ResourceBar value={value} />
 				<span className={styles.cpuPercentage}>{value}%</span>
 			</div>

@@ -6,16 +6,6 @@ export default function formatData(rawData, prevRawData, prevData) {
 
 	let conn_success = rawData?.conn_accepted - rawData?.conn_error - rawData?.conn_timeout
 
-	let server_cpu_time_change = zeroNonInt(
-		rawData?.server_cpu_usage_time_msec - prevRawData?.server_cpu_usage_time_msec
-	)
-	let uptime_change = zeroNonInt(rawData?.uptime_msec - prevRawData?.uptime_msec)
-
-	let server_cpu_percent = 0
-	if (uptime_change > 0) {
-		server_cpu_percent = ((server_cpu_time_change * 100) / uptime_change).toFixed(2)
-	}
-
 	if (prevData == null) {
 		connectionsPerSec = [0]
 		requestsPerSec = [0]
@@ -59,11 +49,11 @@ export default function formatData(rawData, prevRawData, prevData) {
 			? rawData?.sys_cpu_usage_percent
 			: 0,
 		sys_ram: [zeroNonInt(rawData?.sys_ram_usage_bytes), zeroNonInt(rawData?.sys_ram_total_bytes)],
-		server_ram: [
-			zeroNonInt(rawData?.server_ram_usage_bytes),
+		workers_ram_usage_bytes: [
+			zeroNonInt(rawData?.workers_ram_usage_bytes),
 			zeroNonInt(rawData?.sys_ram_total_bytes),
 		],
-		server_cpu_percent: server_cpu_percent,
+		workers_cpu_usage_percent: rawData?.workers_cpu_usage_percent?.map((item) => item?.toFixed(2)),
 		connectionsPerSec: connectionsPerSec,
 		requestsPerSec: requestsPerSec,
 		conn_current: formatInt(rawData?.conn_current),
@@ -96,6 +86,8 @@ export default function formatData(rawData, prevRawData, prevData) {
 			zeroNonInt(rawData?.traffic_total_recv_bytes),
 		],
 	}
+
+	console.log(formattedData)
 
 	return formattedData
 }

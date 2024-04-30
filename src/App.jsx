@@ -128,8 +128,8 @@ function App() {
 						</Box>
 						<Box title={'Worker Usage'}>
 							<span className={styles.subHeading}>CPU Usage</span>
-							<CPUS values={[data?.server_cpu_percent]} />
-							<RAM values={data?.server_ram} />
+							<CPUS values={data?.workers_cpu_usage_percent} />
+							<RAM values={data?.workers_ram_usage_bytes} />
 						</Box>
 					</div>
 				</div>
