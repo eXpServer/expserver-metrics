@@ -5,7 +5,7 @@ import FormatSize from '../Utils/FormatSize'
 export function RAM({ values }) {
 	return (
 		<>
-			<div className={styles.ramHeader}>
+			<div className={styles.ramHeader} style={{ marginTop: '24px' }}>
 				RAM Usage
 				<span className={styles.ramValues}>
 					{FormatSize(values[0], 2, false)}/{FormatSize(values[1], 2, false)}
@@ -38,7 +38,7 @@ function CPU({ value, index }) {
 	)
 }
 
-function ResourceBar({ value, maxValue = 100, width = 100 }) {
+function ResourceBar({ value, maxValue = 100, width = 100, index = null }) {
 	const percentage = (value / maxValue) * 100
 	const progressWidth = (percentage / 100) * width
 
@@ -52,6 +52,9 @@ function ResourceBar({ value, maxValue = 100, width = 100 }) {
 					width: `${progressWidth}%`,
 				}}
 			></div>
+			{index != null ? (
+				<span className={styles.cpuPercentage}>{percentage.toFixed(2)}%</span>
+			) : null}
 		</div>
 	)
 }
